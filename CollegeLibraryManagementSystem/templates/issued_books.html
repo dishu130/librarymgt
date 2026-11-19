@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>View Issued Books</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Issue ID</th>
+                <th>Book name</th>
+                <th>Student name</th>
+                <th>Student roll number</th>
+                <th>Student course</th>
+                <th>Issue date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issued_books %}
+                <tr>
+                    <td>{{ issue.id }}</td>
+                    <td>{{ issue.book_name }}</td>
+                    <td>{{ issue.student_name }}</td>
+                    <td>{{ issue.roll_number }}</td>
+                    <td>{{ issue.student_course }}</td>
+                    <td>{{ issue.issue_date }}</td>
+                    <td>
+                        <form action="{{ url_for('return_book', issue_id=issue.id) }}" method="post">
+                            <button type="submit">Return Book</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">There are no currently issued books.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
